@@ -15,7 +15,7 @@ import java.util.List;
 public class faceRecognizer {
 
 	  static { 
-			System.load("/home/gradle/faceRecognition/lib/libopencv_java340.so"); 
+			System.load("/faceRecognition/lib/libopencv_java340.so"); 
 		}
     public void faceRecognition() {
         String trainingDir = "./trainFace/";
