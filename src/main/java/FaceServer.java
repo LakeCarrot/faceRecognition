@@ -26,6 +26,8 @@ public class FaceServer {
         .build()
         .start();
     logger.info("Face Recognition Server started, listening on " + port);
+		faceRecognizer face = new faceRecognizer();
+		face.load();
     Runtime.getRuntime().addShutdownHook(new Thread() {
       @Override
       public void run() {

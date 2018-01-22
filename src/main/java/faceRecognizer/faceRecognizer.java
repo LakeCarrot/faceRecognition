@@ -17,6 +17,10 @@ public class faceRecognizer {
 	  static { 
 			System.load("/faceRecognition/lib/libopencv_java340.so"); 
 		}
+		static LBPHFaceRecognizer face = LBPHFaceRecognizer.create();
+		public void load() {
+			face.read("faceModel.yml");
+		}
     public void faceRecognition() {
         String trainingDir = "./trainFace/";
 
@@ -45,10 +49,7 @@ public class faceRecognizer {
         }
         */
 
-        LBPHFaceRecognizer face = LBPHFaceRecognizer.create();
-
         //face.train(images, new MatOfInt(labelsBuf));
-        face.read("faceModel.yml");
 
         int[] label = new int[1];
         double[] confidence = new double[1];
