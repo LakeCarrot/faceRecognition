@@ -72,7 +72,10 @@ public class FaceServer {
 				.build();
 			System.out.println("Face? Face!");
 			faceRecognizer face = new faceRecognizer();
+			long begin = System.currentTimeMillis();
 			face.faceRecognition();
+			long end = System.currentTimeMillis();
+			System.out.println("Processing time: " + (end - begin) + " ms");
 			responseObserver.onNext(reply);
 			responseObserver.onCompleted();
 		}
