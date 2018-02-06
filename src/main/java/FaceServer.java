@@ -6,8 +6,12 @@ package faceRecognition;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
+
 import java.io.IOException;
 import java.util.logging.Logger;
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
+
 import faceRecognition.FacerecognitionGrpc;
 import faceRecognition.FacerecognitionOuterClass.FaceRecognitionRequest;
 import faceRecognition.FacerecognitionOuterClass.FaceRecognitionReply;
@@ -67,15 +71,32 @@ public class FaceServer {
 
 		@Override 
 	  public void offloading(FaceRecognitionRequest req, StreamObserver<FaceRecognitionReply> responseObserver) {
+			BufferedOutputStream mBufferedOutputStream = null;
+			String filename = "";
+			byte[] data = req.getData().toByteArray();
+			String name = req.getName();
+			logger.info("receive a message!");
+			try {
+				filename = "receive_" + name;
+				mBufferedOutputStream = new BufferedOutputStream(new FileOutputStream(filename));
+				mBufferedOutputStream.write(data);
+				mBufferedOutputStream.flush();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				mBufferedOutputStream.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				mBufferedOutputStream = null;
+			}
+			System.out.println("Face? Face!");
+			faceRecognizer face = new faceRecognizer();
+			face.recognize(filename);
 			FaceRecognitionReply reply = FaceRecognitionReply.newBuilder()
 				.setMessage("You shall not pass!")
 				.build();
-			System.out.println("Face? Face!");
-			faceRecognizer face = new faceRecognizer();
-			long begin = System.currentTimeMillis();
-			face.faceRecognition();
-			long end = System.currentTimeMillis();
-			System.out.println("Processing time: " + (end - begin) + " ms");
 			responseObserver.onNext(reply);
 			responseObserver.onCompleted();
 		}

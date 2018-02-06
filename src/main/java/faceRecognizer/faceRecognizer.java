@@ -15,43 +15,15 @@ import java.util.List;
 public class faceRecognizer {
 
 	  static { 
-			System.load("/faceRecognition/lib/libopencv_java340.so"); 
-			//System.load("/home/carrot/faceRecognition/lib/libopencv_java340.so"); 
+			//System.load("/faceRecognition/lib/libopencv_java340.so"); 
+			System.load("/home/carrot/faceRecognition/lib/libopencv_java340.so"); 
 		}
 		static LBPHFaceRecognizer face = LBPHFaceRecognizer.create();
 		public void load() {
 			face.read("faceModel.yml");
 		}
-    public void faceRecognition() {
-        String trainingDir = "./trainFace/";
-
-        Mat testImage = Imgcodecs.imread("testFace/1.jpg", Imgcodecs.CV_LOAD_IMAGE_GRAYSCALE);
-        // Comment out, this is for training purpose
-        /*
-        File trainImages = new File(trainingDir);
-        FilenameFilter imgFilter = new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                name = name.toLowerCase();
-                return name.endsWith(".jpg") || name.endsWith(".pgm") || name.endsWith(".png");
-            }
-        };
-        File[] imageFiles =  trainImages.listFiles(imgFilter);
-        List<Mat> images = new ArrayList<>(imageFiles.length);
-        int[] labelsBuf =  new int[imageFiles.length];
-        int counter = 0;
-
-        for(File image : imageFiles) {
-            Mat img = Imgcodecs.imread(image.getAbsolutePath(), Imgcodecs.CV_LOAD_IMAGE_GRAYSCALE);
-            int label = Integer.parseInt(image.getName().split("\\-")[0]);
-            images.add(img);
-            labelsBuf[counter] = label;
-            counter++;
-        }
-        */
-
-        //face.train(images, new MatOfInt(labelsBuf));
-
+    public void recognize(String filename) {
+        Mat testImage = Imgcodecs.imread(filename, Imgcodecs.CV_LOAD_IMAGE_GRAYSCALE);
         int[] label = new int[1];
         double[] confidence = new double[1];
         face.predict(testImage, label, confidence);
