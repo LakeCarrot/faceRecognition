@@ -35,7 +35,7 @@ public class FaceServer {
 
   private void start() throws IOException {
     /* The port on which the server should run */
-    int port = 50052;
+    int port = 50053;
     server = ServerBuilder.forPort(port)
         .addService(new FaceRecognitionImpl())
         .build()
@@ -126,6 +126,8 @@ public class FaceServer {
 			minRate = Math.min(effectiveRate, minRate);
 			maxRate = Math.max(effectiveRate, maxRate);
 			*/
+			String hostIP = System.getenv("HOSTIP");
+			System.out.println(hostIP);
 			updateInfo(currentRate);
 		}
 
@@ -133,7 +135,8 @@ public class FaceServer {
 			ManagedChannel mChannel;
 			mChannel = ManagedChannelBuilder.forAddress("172.28.142.176", 50050).usePlaintext(true).build();
 			OffloadingGrpc.OffloadingBlockingStub stub = OffloadingGrpc.newBlockingStub(mChannel);
-			OffloadingRequest message = OffloadingRequest.newBuilder().setMessage("testIP" + ":" + "face" + ":" + Double.toString(rate)).build();
+			String hostIP = System.getenv("HOSTIP");
+			OffloadingRequest message = OffloadingRequest.newBuilder().setMessage(hostIP + ":" + "face" + ":" + Double.toString(rate)).build();
 			OffloadingReply reply = stub.startService(message);
 		}
 	}
