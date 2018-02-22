@@ -126,6 +126,8 @@ public class FaceServer {
 			minRate = Math.min(effectiveRate, minRate);
 			maxRate = Math.max(effectiveRate, maxRate);
 			*/
+			String hostIP = System.getenv("HOSTIP");
+			System.out.println(hostIP);
 			updateInfo(currentRate);
 		}
 
