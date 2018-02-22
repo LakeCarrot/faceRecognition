@@ -35,7 +35,7 @@ public class FaceServer {
 
   private void start() throws IOException {
     /* The port on which the server should run */
-    int port = 50053;
+    int port = 50052;
     server = ServerBuilder.forPort(port)
         .addService(new FaceRecognitionImpl())
         .build()
@@ -126,8 +126,6 @@ public class FaceServer {
 			minRate = Math.min(effectiveRate, minRate);
 			maxRate = Math.max(effectiveRate, maxRate);
 			*/
-			String hostIP = System.getenv("HOSTIP");
-			System.out.println(hostIP);
 			updateInfo(currentRate);
 		}
 
