@@ -15,7 +15,8 @@ import java.util.List;
 public class faceRecognizer {
 
 	  static { 
-			System.load("/home/carrot/faceRecognition/lib/libopencv_java340.so"); 
+			//System.load("/home/carrot/faceRecognition/lib/libopencv_java340.so"); 
+			System.load("/faceRecognition/lib/libopencv_java340.so"); 
 		}
 		static LBPHFaceRecognizer face = LBPHFaceRecognizer.create();
 		public void load() {
