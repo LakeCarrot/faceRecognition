@@ -28,5 +28,5 @@ RUN wget https://github.com/git-lfs/git-lfs/releases/download/v2.3.4/git-lfs-lin
 RUN tar -xvf git-lfs-linux-386-2.3.4.tar.gz && cd git-lfs-2.3.4/ && ./install.sh && git lfs install
 RUN git checkout .
 
-CMD git pull && gradle installDist && ./build/install/faceRecognition/bin/faceRecognition 
+CMD git pull && git checkout . && gradle installDist && ./build/install/faceRecognition/bin/faceRecognition 
 
