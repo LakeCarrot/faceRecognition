@@ -88,7 +88,7 @@ public class FaceServer {
 			double dataSize = data.length;
 			String name = req.getName();
 			try {
-				filename = "receive_" + name;
+				filename = "receive_test.jpg";
 				mBufferedOutputStream = new BufferedOutputStream(new FileOutputStream(filename));
 				mBufferedOutputStream.write(data);
 				mBufferedOutputStream.flush();
@@ -104,7 +104,7 @@ public class FaceServer {
 			}
 			faceRecognizer face = new faceRecognizer();
 			long begin = System.currentTimeMillis();
-			face.recognize(filename);
+			face.recognize("receive_1.jpg");
 			long end = System.currentTimeMillis();
 			System.out.println("Processing time: " + (end - begin) + " ms");
 			FaceRecognitionReply reply = FaceRecognitionReply.newBuilder()
