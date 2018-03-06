@@ -87,6 +87,7 @@ public class FaceServer {
 			byte[] data = req.getData().toByteArray();
 			double dataSize = data.length;
 			String name = req.getName();
+			System.out.println("Get session " + name);
 			try {
 				filename = "receive_test.jpg";
 				mBufferedOutputStream = new BufferedOutputStream(new FileOutputStream(filename));
@@ -131,12 +132,12 @@ public class FaceServer {
 			updateInfo(currentRate);
 		}
 
-		private void updateInfo(double rate) {
+		private void updateInfo(double rate, String sessionName) {
 			ManagedChannel mChannel;
 			mChannel = ManagedChannelBuilder.forAddress("34.218.103.6", 50050).usePlaintext(true).build();
 			OffloadingGrpc.OffloadingBlockingStub stub = OffloadingGrpc.newBlockingStub(mChannel);
 			String hostIP = System.getenv("HOSTIP");
-			OffloadingRequest message = OffloadingRequest.newBuilder().setMessage(hostIP + ":" + "face" + ":" + Double.toString(rate)).build();
+			OffloadingRequest message = OffloadingRequest.newBuilder().setMessage(hostIP + ":" + sessionName + "face" + ":" + Double.toString(rate)).build();
 			OffloadingReply reply = stub.startService(message);
 		}
 	}
