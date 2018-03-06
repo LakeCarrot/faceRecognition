@@ -129,7 +129,7 @@ public class FaceServer {
 			*/
 			String hostIP = System.getenv("HOSTIP");
 			System.out.println(hostIP);
-			updateInfo(currentRate);
+			updateInfo(currentRate, name);
 		}
 
 		private void updateInfo(double rate, String sessionName) {
