@@ -134,7 +134,7 @@ public class FaceServer {
 
 		private void updateInfo(double rate, String sessionName) {
 			ManagedChannel mChannel;
-			mChannel = ManagedChannelBuilder.forAddress("34.218.103.6", 50050).usePlaintext(true).build();
+			mChannel = ManagedChannelBuilder.forAddress("172.28.142.176", 50050).usePlaintext(true).build();
 			OffloadingGrpc.OffloadingBlockingStub stub = OffloadingGrpc.newBlockingStub(mChannel);
 			String hostIP = System.getenv("HOSTIP");
 			OffloadingRequest message = OffloadingRequest.newBuilder().setMessage(hostIP + ":" + sessionName + ":" + "face" + ":" + Double.toString(rate)).build();
